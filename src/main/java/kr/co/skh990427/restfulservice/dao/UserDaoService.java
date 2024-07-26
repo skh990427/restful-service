@@ -3,6 +3,7 @@ package kr.co.skh990427.restfulservice.dao;
 import kr.co.skh990427.restfulservice.bean.User;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +15,9 @@ public class UserDaoService {
     private static int userCount = 3;
 
     static {
-        users.add(new User(1, "Kenneth", new Date()));
-        users.add(new User(2, "Alice", new Date()));
-        users.add(new User(3, "Elena", new Date()));
+        users.add(new User(1, "Kenneth", LocalDateTime.now()));
+        users.add(new User(2, "Alice", LocalDateTime.now()));
+        users.add(new User(3, "Elena", LocalDateTime.now()));
     }
 
     public List<User> findAll() {
@@ -29,7 +30,7 @@ public class UserDaoService {
         }
 
         if (user.getJoinData() == null) {
-            user.setJoinData(new Date());
+            user.setJoinData(LocalDateTime.now());
         }
 
         users.add(user);
