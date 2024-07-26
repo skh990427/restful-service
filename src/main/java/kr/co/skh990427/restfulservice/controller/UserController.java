@@ -2,6 +2,7 @@ package kr.co.skh990427.restfulservice.controller;
 
 import kr.co.skh990427.restfulservice.bean.User;
 import kr.co.skh990427.restfulservice.dao.UserDaoService;
+import kr.co.skh990427.restfulservice.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,13 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public User retrieveUser(@PathVariable(name = "id") int id) {
-        return userDaoService.findOne(id);
+        User user = userDaoService.findOne(id);
+
+        if (user == null) {
+            throw new UserNotFoundException(String.format("ID[%s] not found", id));
+        }
+
+        return user;
     }
 
     @PostMapping("/users")
